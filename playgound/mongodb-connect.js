@@ -11,28 +11,38 @@ MongoClient.connect("mongodb://localhost:27017/",(err,db)=>{
     console.log("error bos");
   }
   // console.log(dbo);
-  dbo.collection('Todos').insertOne({
-    text:'are you oke',
-    completed: false
-  },(err,result) =>{
-    if (err) {
-      console.log("unable insert todo",err);
-    }
-    console.log("oke");
-    console.log(JSON.stringify(result.ops, undefined,2));//simpan ke database
-  })
-
-  //dbo.collection untuk menyimpan data di dalam table users
-  // dbo.collection('users').insertOne({
-  //   name:"juan",
-  //   age:"25",
-  //   location:"jakarta"
-  // },function(err,result){
+  // dbo.collection('Todos').insertOne({
+  //   text:'are you oke',
+  //   completed: false
+  // },(err,result) =>{
   //   if (err) {
-  //     console.log("error gan")
+  //     console.log("unable insert todo",err);
   //   }
-  //
-  //   console.log(result.ops[0]._id);
-  // });
+  //   console.log("oke");
+  //   console.log(JSON.stringify(result.ops, undefined,2));//simpan ke database
+  // })
+
+  //dbo.collection untuk menyimpan data di dalam table users, insertOne = untuk menyimpan data 1 per 1
+  dbo.collection('users').insertOne({
+    name:"juan mahendra",
+    age:25,
+    location:"jakarta"
+  },function(err,result){
+    if (err) {
+      console.log("error gan")
+    }
+
+    console.log(result.ops[0]._id);
+  });
+// dbo.collection('Todos').insert({
+//   text:'are you oke',
+//   completed: false
+// },(err,result) =>{
+//   if (err) {
+//     console.log("unable insert todo",err);
+//   }
+//   console.log("oke");
+//   console.log(JSON.stringify(result.ops, undefined,2));//simpan ke database
+// })
   db.close();
 });
