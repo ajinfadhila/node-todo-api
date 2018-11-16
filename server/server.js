@@ -7,7 +7,7 @@ const{Todo} = require("./models/todo.js");
 const{User} = require("./models/user.js");
 
 var app = express()
-var port = 3000;
+var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.post('/todos',(req,res)=>{
   var todo = new Todo({
