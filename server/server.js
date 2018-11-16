@@ -28,6 +28,9 @@ app.get('/todos',(req,res)=>{
   })
 });
 
+app.get('/', (req, res) => {
+  console.log("benar");
+});
 app.get('/todos/:id',(req,res)=>{
   var id = req.params.id
 
