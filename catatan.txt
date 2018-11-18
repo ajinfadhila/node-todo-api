@@ -22,3 +22,10 @@ table di mongodb namanya collection
 untuk ngetest aplikasinya running tanpa ada masalah menggunakan run test-watch
 example:
 bramantio@bramantio-X455LF:~/Desktop/node-todo-api$ npm run test-watch
+
+fierce-mountain-88514
+
+You can use git remote set-url to change the url:
+git remote set-url heroku <new-url>
+Alternatively, you can use git remote rm to remove a remote by name:
+git remote rm heroku
