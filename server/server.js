@@ -13,7 +13,7 @@ var http = require('http');
 var server = http.Server(app);
 
 server.listen(port,()=>{
-  console.log(`server run port ${port}`);
+  console.log(`server run`);
 });
 
 module.exports = {app}
