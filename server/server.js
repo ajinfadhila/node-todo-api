@@ -6,14 +6,13 @@ const{mongoose}= require("./db/mongoose.js");
 const{Todo} = require("./models/todo.js");
 const{User} = require("./models/user.js");
 
-
-var app = express()
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+var app = express();
 var http = require('http');
 var server = http.Server(app);
 
-server.listen(port,()=>{
-  console.log(`server run`);
+server.listen(port, () => {
+  console.log(`Server is up on port ${port}`);
 });
 
 module.exports = {app}
