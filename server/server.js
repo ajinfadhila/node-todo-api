@@ -6,8 +6,12 @@ const{mongoose}= require("./db/mongoose.js");
 const{Todo} = require("./models/todo.js");
 const{User} = require("./models/user.js");
 
+
 var app = express()
 var port = process.env.PORT || 3000;
+var http = require('http');
+var server = http.Server(app);
+
 app.use(bodyParser.json());
 app.post('/todos',(req,res)=>{
   var todo = new Todo({
@@ -28,9 +32,7 @@ app.get('/todos',(req,res)=>{
   })
 });
 
-app.get('/', (req, res) => {
-  console.log("benar");
-});
+
 app.get('/todos/:id',(req,res)=>{
   var id = req.params.id
 
@@ -49,7 +51,7 @@ app.get('/todos/:id',(req,res)=>{
     res.status(400).send();
   })
 })
-app.listen(port,()=>{
+server.listen(port,()=>{
   console.log(`server run port ${port}`);
 });
 
