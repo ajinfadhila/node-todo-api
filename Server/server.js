@@ -34,6 +34,25 @@ app.get('/todos',(req,res)=>{
   })
 });
 
+app.get('/todos/:id',(req,res)=>{
+  var id = req.params.id
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Todo.findById(id).then((todo)=>{
+    if (!todo) {
+      return res.status(400).send();
+    }
+    // res.send(req.params);
+    console.log(req.params.id);
+    res.send({todo});
+  }).catch((e)=>{
+    res.status(400).send();
+  })
+})
+
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
