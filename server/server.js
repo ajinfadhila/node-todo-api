@@ -14,45 +14,53 @@ var http = require('http');
 var server = http.Server(app);
 
 app.use(bodyParser.json());
+// untuk menyimpan hasil post data
 app.post('/todos',(req,res)=>{
+  // di dalam req ada objectkeys body di dalam body ada object keys nya text
   var todo = new Todo({
-    text: req.body.text
+    text:req.body.text
   });
-  console.log(todo);
+  // todo.save() = menyimpan ke database
   todo.save().then((doc)=>{
     res.send(doc);
   },(e)=>{
     res.status(400).send(e);
   });
 });
-
+//app.get = mengambil semua data
 app.get('/todos',(req,res)=>{
+  // Todo = file todo.js yg ada di folder models
   Todo.find().then((todos)=>{
-    // console.log(object.keys(todos));
+    // todos = nama parameter yg isinya adalah data dari table todos
     res.send(todos);
   },(e)=>{
     res.status(400).send(e);
   })
 });
 
+// ambil semua data dengan id
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id;
+  //jika object id nya tidak valid akan di kirim ke 404
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
-
+  //proses pencarian id dengan find(id)
   Todo.findById(id).then((todo) => {
+    // jika todo tidak ada lempar ke 404
     if (!todo) {
       return res.status(404).send();
     }
     console.log(id);
-
+//kirim hasil todo
     res.send({todo});
+    //jika eror kirim ke 404 catch(e)
   }).catch((e) => {
     res.status(400).send();
   });
 });
 
+//untuk mendelete data
 app.delete('/todos/:id',(req,res)=>{
   //get id
   // console.log(req.params);
@@ -106,6 +114,10 @@ app.patch('/todos/:id',(req,res)=>{
     res.status(404).send();
   })
 });
+
+app.post('/users',(req,res)=>{
+  console.log(req.body);
+})
 server.listen(port, () => {
   console.log(`Started up at port ${port}`);
 });

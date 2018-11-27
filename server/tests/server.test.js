@@ -13,10 +13,8 @@ const todos = [{
   text:"second text",
   completed:true,
   completedAt:333
-},{
-    _id: new ObjectID(),
-    text: "3 text"
 }]
+// console.log(todos.length);
 
 beforeEach((done)=>{
   Todo.remove({}).then(()=>{
@@ -60,16 +58,16 @@ describe('POST /todos',()=>{
   });
 });
 
-// describe('Get /todos', () =>{
-//   it('should get all todos',(done) => {
-//     request(app)
-//     .get('/todos')
-//     .expect(200)
-//     .expect((res)=>{
-//       expect(res.body.todos.length).toBe(todos.length);
-//     }).end(done);
-//   });
-// });
+describe('Get /todos', () =>{
+  it('should get all todos',(done) => {
+    request(app)
+    .get('/todos')
+    .expect(200)
+    .expect((res)=>{
+      expect(res.body.length).toBe(todos.length);
+    }).end(done);
+  });
+});
 
 describe('GET /todos/:id', () => {
   it('should return todo doc', (done) => {
