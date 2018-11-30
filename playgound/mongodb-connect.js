@@ -2,15 +2,17 @@ const MongoClient = require("mongodb").MongoClient;
 // const {MongoClient, ObjectId} = require("mongodb");
 // var obj = new ObjectId();
 // // var nilai = obj("507c7f79bcf86cd7994f6c0e").valueOf()
-//
+
 // console.log(obj.valueOf());
+//cara connect ke mongodb
 MongoClient.connect("mongodb://localhost:27017/",(err,db)=>{
+  //nama dbnya mydb
   var dbo = db.db("mydb"); //cara memanggil db
   // console.log(db.db("mydb"))
   if (err) {
     console.log("error bos");
   }
-  // console.log(dbo);
+  //DB -> table ->insert 
   // dbo.collection('Todos').insertOne({
   //   text:'are you oke',
   //   completed: false

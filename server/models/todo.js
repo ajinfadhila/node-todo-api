@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-
+// todos adalah nama table dari database mongodb://localhost:27017/TodoApp
 var Todo = mongoose.model("todos",{
   text:{
             type:String,
@@ -17,4 +17,5 @@ var Todo = mongoose.model("todos",{
     }
 });
 
+// melempar data yg ada di dalamtable todos agar bisa di akses oleh file lain
 module.exports = {Todo}

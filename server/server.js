@@ -7,6 +7,7 @@ const {ObjectID} = require("mongodb")
 const{mongoose}= require("./db/mongoose.js");
 const{Todo} = require("./models/todo.js");
 const{User} = require("./models/user.js");
+var {authenticate} =require('./middleware/authenticate.js')
 
 const port = process.env.PORT;
 var app = express();
@@ -14,6 +15,7 @@ var http = require('http');
 var server = http.Server(app);
 
 app.use(bodyParser.json());
+
 // untuk menyimpan hasil post data
 app.post('/todos',(req,res)=>{
   // di dalam req ada objectkeys body di dalam body ada object keys nya text
@@ -111,13 +113,37 @@ app.patch('/todos/:id',(req,res)=>{
     // console.log(todo);
     res.send({todo})
   }).catch((e)=>{
-    res.status(404).send();
+    res.status(400).send();
   })
 });
 
 app.post('/users',(req,res)=>{
-  console.log(req.body);
-})
+  //lebih sensitif atau lebih akurat dengan lodast.pick = _.pick
+  var body = _.pick(req.body,["email","password"]);
+  // hasil input yg ada di body di tampung ke dalam users
+  // new User() sudah ada valueya di dalam models/user.js
+  // body di join dengan user, ketika di panggil hasilnya sudah di setting seperti di dlm models.users
+  var user = new User(body);
+  //save ke database
+  user.save().then(()=>{
+    //jika hasil sesuai akan di kirim ke then
+    return user.generateAuthToken();
+    // res.send(user)
+    //jika fail akan di kirim ke catch 404
+  }).then((token)=>{
+    res.header('x-auth', token).send(user)
+  }).catch((e)=>{
+    res.status(400).send(e);
+  })
+});
+
+
+app.get('/users/me', authenticate,(req,res)=>{
+  console.log(req.user);
+  res.send(req.user)
+});
+
+
 server.listen(port, () => {
   console.log(`Started up at port ${port}`);
 });
