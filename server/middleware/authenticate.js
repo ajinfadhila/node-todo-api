@@ -12,6 +12,7 @@ var authenticate = (req,res, next) =>{
       // langsung di reject dengan promise
       return Promise.reject()
     }
+    console.log("user berhasil di get");
     res.send(user);
   }).catch((e)=>{
     res.status(401).send()

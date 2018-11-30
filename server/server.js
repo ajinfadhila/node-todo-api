@@ -34,7 +34,7 @@ app.get('/todos',(req,res)=>{
   // Todo = file todo.js yg ada di folder models
   Todo.find().then((todos)=>{
     // todos = nama parameter yg isinya adalah data dari table todos
-    res.send(todos);
+    // res.send(todos);
   },(e)=>{
     res.status(400).send(e);
   })
@@ -53,7 +53,7 @@ app.get('/todos/:id', (req, res) => {
     if (!todo) {
       return res.status(404).send();
     }
-    console.log(id);
+    // console.log(id);
 //kirim hasil todo
     res.send({todo});
     //jika eror kirim ke 404 catch(e)
@@ -104,7 +104,7 @@ app.patch('/todos/:id',(req,res)=>{
     body.completedAt = null;
   }
 
-  console.log(body.completedAt);
+  // console.log(body.completedAt);
   //find id dan update
   Todo.findByIdAndUpdate(id,{$set: body}, {new:true}).then((todo)=>{
     if (!todo) {
@@ -139,7 +139,7 @@ app.post('/users',(req,res)=>{
 
 
 app.get('/users/me', authenticate,(req,res)=>{
-  console.log(req.user);
+  // console.log(req.user);
   res.send(req.user)
 });
 
